@@ -1,2 +1,2 @@
 // API url for google login
-export const authenticationUrl = "";
+export const authenticationUrl = "http";

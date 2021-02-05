@@ -1,0 +1,17 @@
+.disabled {
+    pointer-events:none; 
+    opacity:0.5;         
+}
+
+.emp-header{
+
+    background-color: #81b0e0;
+    width: 66%;
+    margin-left: 17%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.error-msg{
+
+    color: red;
+}

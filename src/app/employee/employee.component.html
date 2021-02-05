@@ -1,0 +1,179 @@
+<div class="container">
+  <div class="backend">    
+  <!-- Nav pills -->
+  <ul class="nav nav-tabs">
+      <li class="nav-item " [ngClass]="{'disabled': userRole == 'USER'}">
+        <a class="nav-link active" data-toggle="pill" href="#create" disabled>ADD USER</a>
+      </li>
+      <li class="nav-item" >
+        <a class="nav-link" data-toggle="pill" href="#read">FETCH USER</a>
+      </li>
+     
+    </ul>
+    
+    <!-- Tab panes -->
+     <div class="tab-content">
+      <br>
+      <div class="tab-pane container active" id="create">
+          <form [formGroup]='dataForm' (ngSubmit)="postData()" autocomplete="off">  
+              <div class="form-container">  
+              <h3 class="text-center emp-header">Add a new user</h3><br>
+              <div class="row">  
+              <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12">  
+              <input type="text" formControlName='name' name='name' id='name' placeholder="Username" class="form-control">  
+              <div *ngIf="dataForm.controls['name'].touched && !dataForm.controls['name'].valid">  
+                  <span *ngIf="dataForm.controls['name'].hasError('required') " class="error-msg">  
+                    Username is required  
+                  </span>  
+                  <span *ngIf="dataForm.controls['name'].hasError('minlength') " class="error-msg">  
+                   Min length should be 6
+                  </span>  
+                  <span *ngIf="dataForm.controls['name'].hasError('maxlength') " class="error-msg">  
+                    Max length should be 6
+                   </span>  
+                  <span *ngIf="hasError('name', 'pattern')" class="error-msg">  
+                    Username should be numeric with length 6
+                  </span>  
+              </div>  
+              </div> <br><br>
+
+              <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12">  
+                <input type="text" formControlName='residentialAddress' name='residentialAddress' id='residentialAddress' placeholder="Residential Address" class="form-control">  
+                <div *ngIf="dataForm.controls['residentialAddress'].touched && !dataForm.controls['residentialAddress'].valid">  
+                    <span *ngIf="dataForm.controls['residentialAddress'].hasError('required') " class="error-msg">  
+                      Residential Address  is required  
+                    </span>  
+                    <span *ngIf="dataForm.controls['residentialAddress'].hasError('minlength') " class="error-msg">  
+                      Minimum 20 characters required
+                    </span>  
+                    <span *ngIf="dataForm.controls['residentialAddress'].hasError('maxlength') " class="error-msg">  
+                      Maximum 500 characters required
+                    </span>  
+                </div>  
+                </div> 
+              <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12" style=" margin-top: 10px;">  
+                <select  formControlName='department' name='department' id='department' placeholder="department" class="form-control">
+                  <option value="" disabled selected>Select Department</option>
+                  <option value="TECHNOLOGY">Technology</option>
+                  <option value="BSG">BSG</option>
+                  <option value="PMO">PMO</option>
+                  
+                </select>  
+                <div *ngIf="dataForm.controls['department'].touched && !dataForm.controls['department'].valid">  
+                  <span *ngIf="dataForm.controls['department'].hasError('required') " class="error-msg">  
+                    Department name is required  
+                  </span>  
+              </div>  
+                
+              </div>
+              
+
+              
+              <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12">  
+              <br>  
+              <input type="text" formControlName='mobile' placeholder="Your Mobile" class="form-control">  
+              <div *ngIf="dataForm.controls['mobile'].touched && !dataForm.controls['mobile'].valid">  
+                <span *ngIf="dataForm.controls['mobile'].hasError('required') " class="error-msg">  
+                  Mobile number is required  
+                </span>  
+                <span *ngIf="hasError('mobile', 'pattern')" class="error-msg">
+                 Please enter 10 digits mobile number 
+                  </span>
+              </div>  
+            </div>  
+              <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12">
+              <br>  
+              <input type="text" formControlName='email' placeholder="Email" class="form-control">
+              <div *ngIf="dataForm.controls['email'].touched && !dataForm.controls['email'].valid">  
+                <span *ngIf="dataForm.controls['email'].hasError('required') " class="error-msg">  
+                  Email Field is required  
+                </span> 
+                <span *ngIf="dataForm.controls['email'].hasError('minlength') " class="error-msg">  
+                  email
+                </span> 
+                <span *ngIf="dataForm.controls['email'].hasError('email') " class="error-msg">  
+                 Invalid email ID
+                </span> 
+              </div>  
+               
+              </div>
+              
+              <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12"  style=" margin-top: 10px;">  
+                <select  formControlName='role' name='role' id='role' placeholder="Role" class="form-control">  
+                  <option value="" disabled selected>Select Role</option>
+                  <option value="ADMIN">Admin</option>
+                  <option value="USER">User</option>
+                  
+                  
+                </select>  
+
+                <div *ngIf="dataForm.controls['role'].touched && !dataForm.controls['role'].valid">  
+                  <span *ngIf="dataForm.controls['role'].hasError('required') " class="error-msg">  
+                    Role is required  
+                  </span>  
+              </div>  
+              </div>
+              
+              <div class="col-lg-2 offset-lg-8 col-md-12 col-sm-12 col-xs-12">  
+              <br>  
+              <input type="Submit" value="ADD USER" [disabled]='!dataForm.valid' class="btn btn-success btn-block">  
+              </div>  
+            </div>  
+            </div>  
+            </form>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">{{error}}</div>
+      </div> 
+      
+<!--container to fetch data-->
+<div class="tab-pane container fade" id="read">
+<form [formGroup]='dataForm' (ngSubmit)="fecthData()" autocomplete="off">  
+  <div class="form-container">  
+  <h3 class="text-center emp-header">Fetch Record</h3><br>
+  <div class="row">
+  <div class="col-lg-8 offset-lg-2 col-md-12 col-sm-12 col-xs-12"> 
+    <br> 
+      <input type="text" formControlName='name' name='name' id='name' placeholder="Enter username" class="form-control">  
+      <div *ngIf="dataForm.controls['name'].touched && !dataForm.controls['name'].valid">  
+              <span *ngIf="dataForm.controls['name'].hasError('required') " class="error-msg">  
+              Username is required
+              </span>  
+      </div>  
+  </div>
+  <div class="col-lg-2 offset-lg-8 col-md-12 col-sm-12 col-xs-12"> 
+  <br>  
+  <input type="Submit" value="Fetch Data" class="btn btn-success btn-block">  
+  </div> 
+</div>  
+</div>
+</form> 
+<div *ngIf=dataPresent;  style="    margin-top: 15px;" class="col-lg-8 offset-lg-2"> 
+  <table class="table table-bordered table-striped table-hover " >
+      <tr>
+        <th>Username</th>
+        <td>{{name}}</td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{email}}</td>
+      </tr>
+      <tr>
+        <th>Mobile</th>
+        <td>{{mobile}}</td>
+      </tr>
+      <tr>
+        <th>Role</th>
+        <td>{{role}}</td>
+      
+      </tr>
+
+      <tr>
+        <th>Department</th>
+        <td>{{department}}</td>
+      
+    </table>
+</div>
+</div>
+
+  </div>
+
+  <div class="col-lg-8 offset-lg-4" id="loader" *ngIf=isLoader; ><img src="../../assets/image/giphy.gif"></div>
